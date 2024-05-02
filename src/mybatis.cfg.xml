@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-config.dtd"><!-- 此处如果写成 "http://mybatis.org/dtd/mybatis-3-config.dtd"
+	会报错 -->
+
+<configuration>
+	<settings>
+		<!-- 开启日志,并指定具体日志为log4j -->
+		<setting name="logImpl" value="LOG4J" />
+		<!--将数据库表中的字段名中的下划线（_）自动映射为驼峰，emp_name:empName-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- 开启延迟加载 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 设置属性按需加载 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+	</settings>
+	<typeAliases>
+		<!--自动扫描，将JAVA类的类名作为类的类别名 -->
+		<package name="com.ssm.model" />
+	</typeAliases>
+	<plugins>
+        <!--配置分页插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
+	<mappers>
+		<!-- 自动扫描包内的Mapper接口与配置文件 -->
+		<package name="com/ssm/dao" />
+	</mappers>
+</configuration>

@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.edit {
+	color: blue !important
+}
+
+.delete {
+	color: red !important
+}

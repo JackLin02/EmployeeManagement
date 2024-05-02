@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.UserRoleDao">
+
+	<select id="getUserRoleByeUidAndRid" resultMap="UserAndRoleResultMap">
+		SELECT * FROM user_role WHERE uid=#{id} And rid=#{rid}
+	</select>
+
+	<select id="getAllUserRole" resultMap="UserAndRoleResultMap">
+		SELECT * FROM user_role
+	</select>
+
+	<delete id="deleteUserRole" parameterType="UserRole">
+		DELETE FROM user_role WHERE uid=#{uid} And rid=#{rid}
+	</delete>
+
+	<insert id="insertUserRole" parameterType="UserRole">
+		INSERT INTO user_role VALUES
+		(#{uid},#{rid})
+	</insert>
+
+	<update id="updateUserRole" parameterType="UserRole">
+		UPDATE user_role SET uid=#{uid}, rid=#{rid}
+		WHERE uid=#{uid} And rid=#{rid}
+	</update>
+
+	<resultMap id="UserAndRoleResultMap" type="UserRole">
+		<!-- 设置复合主键 uid 和 rid 的映射 -->
+		<id property="uid" column="uid"></id>
+		<id property="rid" column="rid"></id>
+		<collection property="users" ofType="User">
+			<id property="id" column="id"></id>
+			<result property="name" column="name"></result>
+			<result property="email" column="email"></result>
+			<result property="birthday" column="birthday"></result>
+			<result property="status" column="status"></result>
+		</collection>
+		<collection property="roles" ofType="Role">
+			<id property="id" column="id"></id>
+			<result property="roleId" column="role_id"></result>
+			<result property="roleName" column="role_name"></result>
+		</collection>
+	</resultMap>
+
+</mapper>

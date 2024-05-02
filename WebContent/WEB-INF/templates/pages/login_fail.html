@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p th:if="${session.error}">Login failure.</p>
+	<p th:unless="${session.error}">You have not login yet.</p>
+	<p>You will be redirected to the login page after: <span id="countdown" style="color: red"></span> seconds.</p>
+</body>
+<script th:inline="javascript">
+	// Setting count down timer (base milli second).
+	const endTime = new Date().getTime() + 10000; // After 10 seconds
+
+	function updateCountdown() {
+		const now = new Date().getTime();
+		const timeLeft = endTime - now;
+
+		if (timeLeft <= 0) {
+			clearInterval(timer);
+			// Redirecting to sign in page.
+			const targetUrl = /*[[${session.targetUrl}]]*/;
+			window.location.href = targetUrl;
+		} else {
+			const seconds = Math.floor(timeLeft / 1000);
+			document.getElementById("countdown").textContent = `${seconds}`;
+		}
+	}
+
+	// Updatting count down time per second.
+	const timer = setInterval(updateCountdown, 1000);
+</script>
+</html>

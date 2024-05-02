@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+         http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 开启包扫描注解： springmvc.xml中只对controller做扫描 -->
+	<context:component-scan base-package="com.ssm.controller" />
+
+	<!--配置Thymeleaf视图解析器-->
+    <!-- 使用thymeleaf解析 -->
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/"/>
+        <property name="suffix" value=".html"/>
+        <property name="templateMode" value="HTML5"/>
+        <property name="cacheable" value="false"/>
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"/>
+    </bean>
+
+    <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+    	<property name="order" value="1"/>
+        <property name="templateEngine" ref="templateEngine"/>
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <!--配置视图控制器-->
+    <mvc:view-controller path="/" view-name="index"></mvc:view-controller>
+    <mvc:view-controller path="/employee-insert" view-name="pages/employee_insert"></mvc:view-controller>
+    <mvc:view-controller path="/role-insert" view-name="pages/role_insert"></mvc:view-controller>
+    <mvc:view-controller path="/billing" view-name="pages/billing"></mvc:view-controller>
+    <mvc:view-controller path="/dashboard" view-name="pages/dashboard"></mvc:view-controller>
+    <mvc:view-controller path="/billing" view-name="pages/billing"></mvc:view-controller>
+    <mvc:view-controller path="/profile" view-name="pages/profile"></mvc:view-controller>
+    <mvc:view-controller path="/login-fail" view-name="pages/login_fail"></mvc:view-controller>
+    <mvc:view-controller path="/rtl" view-name="pages/rtl"></mvc:view-controller>
+    <mvc:view-controller path="/virtual-reality" view-name="pages/virtual-reality"></mvc:view-controller>
+
+    <!--开放对静态资源的访问-->
+    <mvc:default-servlet-handler/>
+
+    <!-- 配置拦截器 -->
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<!-- 需要登录才能访问的路径 -->
+    		<mvc:mapping path="/**" />
+    		<mvc:exclude-mapping path="/static/**/**"/>
+        	<mvc:exclude-mapping path="/static/**/**/**"/>
+        	<mvc:exclude-mapping path="/sign-in"/>
+        	<mvc:exclude-mapping path="/sign-up"/>
+        	<mvc:exclude-mapping path="/login"/>
+        	<mvc:exclude-mapping path="/login-fail"/>
+    		<bean class="com.ssm.util.AuthenticationInterceptor" />
+    	</mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--开启mvc注解驱动-->
+    <mvc:annotation-driven/>
+</beans>
