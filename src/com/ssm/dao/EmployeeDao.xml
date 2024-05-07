@@ -3,26 +3,26 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssm.dao.EmployeeDao">
 <select id="getAllEmployee" resultType="Employee">
-	SELECT * FROM employees_copy
+	SELECT * FROM employees
 </select>
 
 <select id="getEmployeeById" resultType="Employee">
-	SELECT * FROM employees_copy WHERE employee_id = #{id}
+	SELECT * FROM employees WHERE employee_id = #{id}
 </select>
 
 <insert id="insertEmployee" parameterType="Employee">
-	INSERT INTO employees_copy VALUES (#{employeeId},#{firstName},#{lastName},
+	INSERT INTO employees VALUES (null,#{firstName},#{lastName},
 	#{email},#{phoneNumber},#{hireDate},#{jobId},#{salary},#{commisionPct},
 	#{managerId},#{departmentId})
 </insert>
 
 <update id="updateEmployee" parameterType="Employee">
-	UPDATE employees_copy SET first_name = #{firstName}, last_name = #{lastName}, email = #{email},
+	UPDATE employees SET first_name = #{firstName}, last_name = #{lastName}, email = #{email},
 	phone_number = #{phoneNumber}, hire_date = #{hireDate}, job_Id = #{jobId}, salary = #{salary},
 	manager_id = #{managerId}, department_id = #{departmentId} WHERE employee_id = #{employeeId}
 </update>
 
 <delete id="deleteEmployee" parameterType="Employee">
-	DELETE From employees_copy WHERE employee_id = #{employeeId}
+	DELETE From employees WHERE employee_id = #{employeeId}
 </delete>
 </mapper>

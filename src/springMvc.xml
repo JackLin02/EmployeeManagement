@@ -44,6 +44,7 @@
     <mvc:view-controller path="/login-fail" view-name="pages/login_fail"></mvc:view-controller>
     <mvc:view-controller path="/rtl" view-name="pages/rtl"></mvc:view-controller>
     <mvc:view-controller path="/virtual-reality" view-name="pages/virtual-reality"></mvc:view-controller>
+    <mvc:view-controller path="/login-already" view-name="pages/login_already"></mvc:view-controller>
 
     <!--开放对静态资源的访问-->
     <mvc:default-servlet-handler/>
@@ -55,10 +56,11 @@
     		<mvc:mapping path="/**" />
     		<mvc:exclude-mapping path="/static/**/**"/>
         	<mvc:exclude-mapping path="/static/**/**/**"/>
-        	<mvc:exclude-mapping path="/sign-in"/>
+        	<!-- <mvc:exclude-mapping path="/sign-in"/> -->
         	<mvc:exclude-mapping path="/sign-up"/>
         	<mvc:exclude-mapping path="/login"/>
         	<mvc:exclude-mapping path="/login-fail"/>
+        	<mvc:exclude-mapping path="/login-already"/>
     		<bean class="com.ssm.util.AuthenticationInterceptor" />
     	</mvc:interceptor>
     </mvc:interceptors>

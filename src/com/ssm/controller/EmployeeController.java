@@ -46,11 +46,6 @@ public class EmployeeController {
 	// Insert a new employee
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
 	public String insertEmployee(Employee employee){
-		List<Employee> allEmployee = employeeService.getAllEmployee();
-		int size = allEmployee.size();
-		Employee lastEmp = allEmployee.get(size-1);
-		Integer newEmpId = lastEmp.getEmployeeId() + 1;
-		employee.setEmployeeId(newEmpId);
 		employeeService.insertEmployee(employee);
 		return "redirect:/employees";
 	}

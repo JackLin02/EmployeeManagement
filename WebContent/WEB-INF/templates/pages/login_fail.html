@@ -20,7 +20,9 @@
 		if (timeLeft <= 0) {
 			clearInterval(timer);
 			// Redirecting to sign in page.
-			const targetUrl = /*[[${session.targetUrl}]]*/;
+			// const targetUrl = /*[[${session.targetUrl}]]*/;
+			let targetUrl = /*[[${#httpServletRequest.getContextPath()}]]*/;
+			targetUrl += "/sign-in";
 			window.location.href = targetUrl;
 		} else {
 			const seconds = Math.floor(timeLeft / 1000);

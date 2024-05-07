@@ -12,15 +12,15 @@
 </select>
 
 <delete id="deleteRole" parameterType="Role">
-	DELETE FORM role WHERE id=#{id}
+	DELETE FROM role WHERE id=#{id}
 </delete>
 
 <insert id="insertRole" parameterType="Role">
-	INSERT INTO Role VALUES (null,#{roleId},#{roleName})
+	INSERT INTO role VALUES (null,#{roleId},#{roleName})
 </insert>
 
 <update id="updateRole" parameterType="Role">
-	UPDATE Role SET role_id = #{roleId}, role_name = #{roleName}
+	UPDATE role SET role_id = #{roleId}, role_name = #{roleName}
 	WHERE id=#{id}
 </update>
 

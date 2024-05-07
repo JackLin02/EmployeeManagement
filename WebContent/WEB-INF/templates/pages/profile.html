@@ -290,7 +290,7 @@
 						class="nav-link text-body p-0"
 						id="dropdownMenuButton2" data-bs-toggle="dropdown"
 						aria-expanded="false"> <i class="fa fa-user me-sm-1"></i> <span
-							class="d-sm-inline d-none">Log Out</span>
+							class="text-white d-sm-inline d-none">Log Out</span>
 					</a>
 					<ul th:if="${session.user != null}" class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
 							aria-labelledby="dropdownMenuButton2">
@@ -416,7 +416,7 @@
           </div>
           <div class="col-auto my-auto">
             <div class="h-100">
-              <h5 class="mb-1">
+              <h5 class="mb-1" th:text="${session.user.getName()}">
                 Alec Thompson
               </h5>
               <p class="mb-0 font-weight-bold text-sm">

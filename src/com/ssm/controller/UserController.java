@@ -147,13 +147,13 @@ public class UserController {
 		HttpSession session = request.getSession();
 		if(session != null){
 			Object error = session.getAttribute("error");
-			Object url = session.getAttribute("targetUrl");
+			//Object url = session.getAttribute("targetUrl");
 			if(error != null){
 				session.removeAttribute("error");
 			}
-			if(url != null){
+			/*if(url != null){
 				session.removeAttribute("url");
-			}
+			}*/
 		}
 		return "pages/sign-in";
 	}

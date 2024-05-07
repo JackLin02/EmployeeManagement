@@ -28,35 +28,48 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		/*String signinURI = request.getContextPath() + "/sign-in"; // sign in page path
-		String loginURI = request.getContextPath() + "/login";
-		String loginFail = request.getContextPath() + "/login-fail";
-		String requestURI = request.getRequestURI();
-		if(requestURI.equals(signinURI) || requestURI.equals(loginURI) || requestURI.equals(requestURI)){
-			return true;
-		}*/
+		/*
+		 * String signinURI = request.getContextPath() + "/sign-in"; // sign in
+		 * page path String loginURI = request.getContextPath() + "/login";
+		 * String loginFail = request.getContextPath() + "/login-fail"; String
+		 * requestURI = request.getRequestURI(); if(requestURI.equals(signinURI)
+		 * || requestURI.equals(loginURI) || requestURI.equals(requestURI)){
+		 * return true; }
+		 */
 
-		String userRequest = request.getContextPath() + "/user";
+		String contextPath = request.getContextPath();
+		String userRequest = contextPath + "/user";
+		String signInRequest = contextPath + "/sign-in";
 		String requestURI = request.getRequestURI();
-		if(requestURI.equals(userRequest) && request.getMethod().equalsIgnoreCase("POST")){
+		if (requestURI.equals(userRequest) && request.getMethod().equalsIgnoreCase("POST")) {
 			return true;
 		}
 
 		Object user = request.getSession().getAttribute("user");
-		if(user == null){
-			// user is not login
-			StringBuilder sb = new StringBuilder();
-			sb.append(request.getContextPath());
-			sb.append(File.separator);
-			sb.append("sign-in");
 
-			String targetUrl = sb.toString();
+		if (requestURI.equals(signInRequest)) {
+			if(user != null) {
+				request.getRequestDispatcher("/login-already").forward(request, response);
+			} else {
+				return true;
+			}
+		} else {
+			if (user == null) {
+				// user is not login
+				/*
+				 * StringBuilder sb = new StringBuilder();
+				 * sb.append(request.getContextPath());
+				 * sb.append(File.separator); sb.append("sign-in");
+				 *
+				 * String targetUrl = sb.toString();
+				 *
+				 * HttpSession session = request.getSession();
+				 * session.setAttribute("targetUrl", targetUrl);
+				 */
 
-			HttpSession session = request.getSession();
-			session.setAttribute("targetUrl", targetUrl);
-
-			response.sendRedirect("login-fail");
-			return false;
+				response.sendRedirect(contextPath + "/login-fail");
+				return false;
+			}
 		}
 
 		// user is login
